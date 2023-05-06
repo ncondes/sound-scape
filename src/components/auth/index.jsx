@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Login } from './Login'
 import { Register } from './Register'
-import { closeModal } from '../../stores/modal'
+import { closeModal } from '../../stores/slices/modal'
 
 export const AuthModal = () => {
    const dispatch = useDispatch()

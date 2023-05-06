@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRightToBracket, faSliders } from '@fortawesome/free-solid-svg-icons'
-import { openModal } from '../../stores/modal'
+import { openModal } from '../../stores/slices/modal'
 import { useDispatch } from 'react-redux'
 
 export const Header = () => {

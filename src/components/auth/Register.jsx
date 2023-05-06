@@ -2,8 +2,8 @@ import { useForm } from 'react-hook-form'
 import { InputField } from './InputField'
 import { useDispatch, useSelector } from 'react-redux'
 import { Alert } from '../alert'
-import { useEffect, useMemo } from 'react'
-import { startCreatingUser } from '../../stores/userThunks'
+import { useMemo } from 'react'
+import { startCreatingUser } from '../../stores/thunks/auth'
 import { useAlertMessage } from '../../hooks'
 
 const schema = {
@@ -64,29 +64,20 @@ export const Register = () => {
       handleSubmit,
       formState: { errors }
    } = useForm()
-
    const dispatch = useDispatch()
-   const { message, status } = useSelector((state) => state.user)
-   const { handleAlertMessage, alertMessage, backgroundColor, showAlert, clearAlertMessage } =
-      useAlertMessage('register')
-
+   const { status } = useSelector((state) => state.auth)
+   const { message, variant, showAlert, displayAlert } = useAlertMessage()
    const isAuthenticating = useMemo(() => status === 'checking', [status])
 
    const onSubmit = (data) => {
       dispatch(startCreatingUser(data))
-      handleAlertMessage(message, 'register')
+      displayAlert()
    }
-
-   useEffect(() => {
-      clearAlertMessage()
-   }, [])
 
    return (
       <form onSubmit={handleSubmit(onSubmit)}>
          <div className="flex flex-col my-1">
-            {showAlert ? (
-               <Alert alertMessage={alertMessage} backgroundColor={backgroundColor} />
-            ) : null}
+            {showAlert ? <Alert message={message} variant={variant} /> : null}
             {/* name */}
             <InputField
                label="Name"

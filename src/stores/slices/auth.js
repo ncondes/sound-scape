@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-export const userSlice = createSlice({
+export const authSlice = createSlice({
    name: 'user',
    initialState: {
       isUserLoggedIn: false,
@@ -18,16 +18,18 @@ export const userSlice = createSlice({
          state.message = 'Login successful'
          state.status = 'authenticated'
       },
-      logout: (state, { payload }) => {
-         state.message = payload?.errorMessage
+      logout: (state) => {
          state.isUserLoggedIn = false
          state.status = 'not-authenticated'
       },
       checkingCredentials: (state) => {
          state.message = 'Checking...'
          state.status = 'checking'
+      },
+      setMessage: (state, action) => {
+         state.message = action.payload
       }
    }
 })
 
-export const { register, login, logout, checkingCredentials } = userSlice.actions
+export const { register, login, logout, checkingCredentials, setMessage } = authSlice.actions
